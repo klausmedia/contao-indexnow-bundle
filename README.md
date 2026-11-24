@@ -94,11 +94,18 @@ Users who are not administrators need the **IndexNow** module in their user grou
 
 **Send automatically** is enabled by default in the website root. The cron job then sends the queue every 5 minutes. If the option is off, the bundle keeps collecting URLs but only sends them with **Send now**. This is useful for staging websites, for testing and on servers without a cron job.
 
+### Maintenance mode
+
+While maintenance mode is active in the website root, the bundle keeps collecting URLs but does not send them, not even with **Send now** or on the command line. Search engines would otherwise only get the maintenance page (HTTP 503). Once maintenance mode has ended, the next run of the cron job sends the URLs. Without **Send automatically**, click **Send now**. The key file remains available.
+
+In the system-wide maintenance mode of Contao, the cron job does not run and the URLs stay in the queue. Do not use the console command then, because the key file is not available.
+
 ### Notices in the list
 
 | Notice | Meaning |
 | --- | --- |
 | Automatic sending is switched off for … | These websites only report with **Send now**. |
+| Maintenance mode is active for … | These websites only report once maintenance mode has ended. |
 | The cron job … has not run yet | Normal right after the installation. If the notice stays, no cron job runs on this server. |
 | The cron job … has not run since … | The last run was more than an hour ago. |
 
@@ -179,6 +186,7 @@ The command ends with an error code if IndexNow has rejected URLs.
 
 - The route `/{key}.txt` applies to every address of this form with 8–128 characters and responds with 404 if no key matches. Real files in `public/` take precedence. A Contao page with the URL suffix `.txt`, however, would be intercepted.
 - If a stop date is set directly to a time in the past, the removal may not be reported. Unpublish the record instead.
+- If several website roots share a domain, the maintenance mode of the root whose key is used applies.
 - If an unpublished article is copied with its content, the bundle reports the page once unnecessarily. This does no harm.
 - If a parent page is protected later, its subpages are not reported as removed.
 - If an archive has a great many entries, saving its reader page after an alias change takes longer, because each URL is generated individually.

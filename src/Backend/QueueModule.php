@@ -53,7 +53,7 @@ class QueueModule
     }
 
     /**
-     * Shows in the list which websites are only sent by hand.
+     * Shows in the list which websites are only sent by hand or not at all for now.
      */
     #[AsCallback(table: self::TABLE, target: 'config.onload')]
     public function onLoad(DataContainer|null $dc = null): void
@@ -68,6 +68,12 @@ class QueueModule
 
         if ([] !== $titles) {
             $this->message()->addInfo($this->trans('manualInfo', [implode(', ', $titles)]));
+        }
+
+        $titles = $this->queue->getMaintenanceRootTitles();
+
+        if ([] !== $titles) {
+            $this->message()->addInfo($this->trans('maintenanceInfo', [implode(', ', $titles)]));
         }
 
         $this->checkCron();
@@ -112,8 +118,14 @@ class QueueModule
 
         $result = $this->submitter->submitQueue();
 
+        $onHold = $this->queue->countOnHold();
+
+        if ($onHold > 0) {
+            $this->message()->addInfo($this->trans('onHold', [$onHold]));
+        }
+
         // Only URLs of websites that no longer use IndexNow: they were dropped
-        if (0 === $result['sent'] + $result['retry'] + $result['failed']) {
+        if (0 === $result['sent'] + $result['retry'] + $result['failed'] + $onHold) {
             $this->message()->addInfo($this->trans('nothingToSend'));
         }
 

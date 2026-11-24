@@ -78,6 +78,7 @@ class SubmitCommand extends Command
             ['Reported' => $result['sent']],
             ['Rejected' => $result['failed']],
             ['Retry later' => $result['retry']],
+            ['On hold (maintenance mode)' => $this->queue->countOnHold()],
         );
 
         if ($result['failed'] > 0) {

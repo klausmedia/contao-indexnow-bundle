@@ -12,9 +12,11 @@ $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['enqueueAll'] = ['Queue all URLs', '
 
 // Messages
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['manualInfo'] = 'Automatic sending is switched off for: %s. These URLs are only reported with "Send now".';
+$GLOBALS['TL_LANG']['tl_km_indexnow_queue']['maintenanceInfo'] = 'Maintenance mode is active for: %s. URLs are collected but only sent once it has ended. Until then, "Queue all URLs" does not find any URLs there.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['nothingToSend'] = 'The queue is empty.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['sent'] = '%d URL(s) reported to IndexNow.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['retry'] = '%d URL(s) not reported (IndexNow unreachable or busy). They stay in the queue.';
+$GLOBALS['TL_LANG']['tl_km_indexnow_queue']['onHold'] = '%d URL(s) not sent because of the maintenance mode. They stay in the queue.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['failed'] = '%d URL(s) rejected by IndexNow. See the system log for details.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['noRoots'] = 'No website root has IndexNow enabled.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['noDomain'] = 'Website root ID %d has no domain.';

@@ -12,9 +12,11 @@ $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['enqueueAll'] = ['Alle URLs einreihe
 
 // Messages
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['manualInfo'] = 'Automatisches Senden ist ausgeschaltet für: %s. Diese URLs werden nur mit „Jetzt senden“ gemeldet.';
+$GLOBALS['TL_LANG']['tl_km_indexnow_queue']['maintenanceInfo'] = 'Der Wartungsmodus ist aktiv für: %s. URLs werden gesammelt, aber erst nach dem Ende des Wartungsmodus gesendet. „Alle URLs einreihen“ findet dort solange keine URLs.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['nothingToSend'] = 'Die Warteschlange ist leer.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['sent'] = '%d URL(s) an IndexNow gemeldet.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['retry'] = '%d URL(s) nicht gemeldet (IndexNow nicht erreichbar oder überlastet). Sie bleiben in der Warteschlange.';
+$GLOBALS['TL_LANG']['tl_km_indexnow_queue']['onHold'] = '%d URL(s) wegen des Wartungsmodus nicht gesendet. Sie bleiben in der Warteschlange.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['failed'] = '%d URL(s) von IndexNow abgelehnt. Details im Systemlog.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['noRoots'] = 'Kein Startpunkt hat IndexNow aktiviert.';
 $GLOBALS['TL_LANG']['tl_km_indexnow_queue']['noDomain'] = 'Startpunkt ID %d hat keine Domain.';

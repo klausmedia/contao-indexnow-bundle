@@ -61,6 +61,8 @@ class Queue
 
     /**
      * Pending URLs of active website roots, grouped by root, scheme and host.
+     * URLs of websites in maintenance mode stay in the queue: search engines
+     * would only get the status 503.
      *
      * @param bool $autoOnly only websites with automatic submission (cron job)
      *
@@ -75,8 +77,9 @@ class Queue
 
         $rows = $this->connection->fetchAllAssociative(
             'SELECT q.id, q.tstamp, q.url, q.root, p.indexnowKey FROM ' . self::TABLE . ' q
-             INNER JOIN tl_page p ON p.id = q.root'
-             . ($autoOnly ? ' WHERE p.indexnowAutoSubmit = 1' : '') . '
+             INNER JOIN tl_page p ON p.id = q.root
+             WHERE p.maintenanceMode = 0'
+             . ($autoOnly ? ' AND p.indexnowAutoSubmit = 1' : '') . '
              ORDER BY q.root, q.id'
         );
 
@@ -146,6 +149,28 @@ class Queue
     public function count(): int
     {
         return (int) $this->connection->fetchOne('SELECT COUNT(*) FROM ' . self::TABLE);
+    }
+
+    /**
+     * Pending URLs held back because their website is in maintenance mode.
+     */
+    public function countOnHold(): int
+    {
+        return (int) $this->connection->fetchOne(
+            'SELECT COUNT(*) FROM ' . self::TABLE . ' WHERE root IN (SELECT id FROM tl_page WHERE ' . self::ACTIVE_ROOTS . ' AND maintenanceMode = 1)'
+        );
+    }
+
+    /**
+     * Titles of the website roots with IndexNow that are in maintenance mode.
+     *
+     * @return list<string>
+     */
+    public function getMaintenanceRootTitles(): array
+    {
+        return array_map('strval', $this->connection->fetchFirstColumn(
+            'SELECT title FROM tl_page WHERE ' . self::ACTIVE_ROOTS . ' AND maintenanceMode = 1 ORDER BY sorting'
+        ));
     }
 
     /**

@@ -94,11 +94,18 @@ Benutzer ohne Administratorrechte brauchen in ihrer Benutzergruppe das Modul **I
 
 Im Startpunkt ist **Automatisch senden** standardmäßig aktiviert. Dann schickt der Cronjob die Warteschlange alle 5 Minuten. Ist die Option aus, sammelt das Bundle die URLs weiter, sendet sie aber erst mit **Jetzt senden**. Das ist sinnvoll für Staging-Seiten, zum Testen und auf Servern ohne Cronjob.
 
+### Wartungsmodus
+
+Ist im Startpunkt der **Wartungsmodus** aktiv, sammelt das Bundle die URLs weiter, sendet sie aber nicht, auch nicht mit **Jetzt senden** oder auf der Konsole. Suchmaschinen würden sonst nur die Wartungsseite (HTTP 503) erhalten. Nach dem Ende des Wartungsmodus sendet der nächste Cronjob-Lauf die URLs, ohne **Automatisch senden** genügt ein Klick auf **Jetzt senden**. Die Schlüsseldatei bleibt erreichbar.
+
+Im systemweiten Wartungsmodus von Contao läuft der Cronjob nicht, und die URLs bleiben in der Warteschlange. Der Konsolenbefehl sollte dann nicht verwendet werden, weil die Schlüsseldatei nicht erreichbar ist.
+
 ### Hinweise in der Liste
 
 | Hinweis | Bedeutung |
 | --- | --- |
 | Automatisches Senden ist ausgeschaltet für … | Diese Websites melden nur mit **Jetzt senden**. |
+| Der Wartungsmodus ist aktiv für … | Diese Websites melden erst nach dem Ende des Wartungsmodus. |
 | Der Cronjob ist noch nicht gelaufen | Direkt nach der Installation normal. Bleibt der Hinweis, läuft auf diesem Server kein Cronjob. |
 | Der Cronjob ist seit … nicht mehr gelaufen | Der letzte Lauf liegt mehr als eine Stunde zurück. |
 
@@ -179,6 +186,7 @@ Der Befehl endet mit einem Fehlercode, wenn IndexNow URLs abgelehnt hat.
 
 - Die Route `/{schlüssel}.txt` gilt für jede Adresse dieser Form mit 8–128 Zeichen und antwortet mit 404, wenn kein Schlüssel passt. Echte Dateien in `public/` haben Vorrang. Eine Contao-Seite mit der URL-Endung `.txt` würde dagegen abgefangen.
 - Wird „Anzeigen bis“ direkt auf einen vergangenen Zeitpunkt gesetzt, wird das Entfernen womöglich nicht gemeldet. Den Eintrag stattdessen zurückziehen.
+- Teilen sich mehrere Startpunkte eine Domain, entscheidet über den Wartungsmodus der Startpunkt, dessen Schlüssel verwendet wird.
 - Wird ein unveröffentlichter Artikel samt Inhalt kopiert, meldet das Bundle die Seite einmal unnötig. Das schadet nicht.
 - Schützt man eine Elternseite nachträglich, werden ihre Unterseiten nicht als entfernt gemeldet.
 - Hat ein Archiv sehr viele Einträge, dauert das Speichern seiner Leserseite nach einer Alias-Änderung länger, weil jede URL einzeln erzeugt wird.
