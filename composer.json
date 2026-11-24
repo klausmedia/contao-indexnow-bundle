@@ -1,0 +1,56 @@
+{
+    "name": "klausmedia/contao-indexnow-bundle",
+    "description": "Reports new, changed and removed pages, news, events and FAQs to IndexNow (Bing, Yandex, Seznam, Naver, Yep)",
+    "type": "contao-bundle",
+    "license": "MIT",
+    "keywords": ["contao", "indexnow", "seo", "bing", "search engine", "indexing"],
+    "homepage": "https://github.com/klausmedia/contao-indexnow-bundle",
+    "authors": [
+        {
+            "name": "Benny Klaus",
+            "homepage": "https://klaus.media",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/klausmedia/contao-indexnow-bundle/issues",
+        "source": "https://github.com/klausmedia/contao-indexnow-bundle",
+        "docs": "https://github.com/klausmedia/contao-indexnow-bundle#readme"
+    },
+    "require": {
+        "php": "^8.4",
+        "ext-simplexml": "*",
+        "contao/core-bundle": "^6.0",
+        "doctrine/dbal": "^4.4",
+        "psr/log": "^1.1 || ^2.0 || ^3.0",
+        "symfony/config": "^7.4 || ^8.0",
+        "symfony/console": "^7.4 || ^8.0",
+        "symfony/dependency-injection": "^7.4 || ^8.0",
+        "symfony/http-client": "^7.4 || ^8.0",
+        "symfony/http-client-contracts": "^3.1",
+        "symfony/http-foundation": "^7.4 || ^8.0",
+        "symfony/http-kernel": "^7.4 || ^8.0",
+        "symfony/routing": "^7.4 || ^8.0",
+        "symfony/security-csrf": "^7.4 || ^8.0",
+        "symfony/translation-contracts": "^3.0"
+    },
+    "suggest": {
+        "contao/news-bundle": "Reports news",
+        "contao/calendar-bundle": "Reports events",
+        "contao/faq-bundle": "Reports FAQs"
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "KlausMedia\\IndexNowBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "KlausMedia\\IndexNowBundle\\ContaoManager\\Plugin"
+    }
+}

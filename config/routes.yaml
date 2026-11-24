@@ -1,0 +1,7 @@
+# Key file for IndexNow: https://<domain>/<key>.txt (see KeyFileController)
+km_indexnow_key:
+    path: /{key}.txt
+    controller: KlausMedia\IndexNowBundle\Controller\KeyFileController
+    methods: [GET, HEAD]
+    requirements:
+        key: '[a-zA-Z0-9-]{8,128}'
