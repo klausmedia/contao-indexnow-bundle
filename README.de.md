@@ -48,7 +48,9 @@ Bei mehreren Websites erledigst du diese Schritte für jeden Startpunkt, der mel
 
 ### Gemeldete Einträge
 
-Gemeldet werden Seiten, Nachrichten, Events und FAQs mit eigener Detailseite.
+Gemeldet werden Seiten sowie Nachrichten, Events und FAQs mit eigener Detailseite.
+
+Ändert sich eine veröffentlichte **FAQ**, werden auch die Seiten gemeldet, die ihre Kategorie über ein FAQ-Modul (Modultyp `faqpage` oder `faqlist`) im Inhaltselement „Modul“ ausgeben. Eine Detailseite ist dafür nicht nötig. Auch das Löschen einer FAQ-Kategorie mit veröffentlichten FAQs meldet diese Seiten.
 
 Nicht gemeldet werden:
 
@@ -58,7 +60,7 @@ Nicht gemeldet werden:
 - Seiten mit „In Sitemap anzeigen: nie“
 - Seitentypen ohne eigenen Inhalt: Startpunkt, Ordner, Weiterleitungen, Logout, Fehlerseiten und Newsfeeds
 - Nachrichten und Events, die nur auf eine Seite, einen Artikel oder eine externe URL verweisen
-- Seiten, auf denen Nachrichten, Events oder FAQs nur über ein Modul ausgegeben werden, wenn sich ein solcher Eintrag ändert. Sie lassen sich durch Speichern der Seite melden.
+- Seiten mit Nachrichten- oder Eventlisten, wenn sich eine Nachricht oder ein Event ändert, sowie Seiten, die ein FAQ-Modul über das Seitenlayout, einen Insert-Tag oder ein Alias-Element ausgeben, wenn sich eine FAQ ändert. Sie lassen sich durch Speichern der Seite melden.
 - Websites, deren Startpunkt IndexNow nicht aktiviert hat oder nicht veröffentlicht ist. Ein Startpunkt ohne Domain meldet nur für Domains, die keinen eigenen Startpunkt haben.
 
 ### Auslöser
@@ -75,6 +77,7 @@ Nicht gemeldet werden:
 | Wiederherstellen aus dem Papierkorb | Alle wiederhergestellten Einträge, auch die mitgelöschten |
 | Ältere Version wiederherstellen | URL vor und nach dem Wiederherstellen |
 | Start- oder Endzeit erreicht („Anzeigen ab“ / „Anzeigen bis“) | URL des Eintrags, beim nächsten Cronjob-Lauf |
+| Alle Aktionen bei veröffentlichten FAQs, Löschen einer FAQ-Kategorie | Zusätzlich die Seiten, die die Kategorie ausgeben (siehe oben) |
 
 Ändert sich ein **Artikel** oder ein **Inhaltselement**, wird die Seite, Nachricht oder das Event gemeldet, zu dem es gehört. Das gilt für alle Aktionen aus der Tabelle, auch bei verschachtelten Elementen. Voraussetzung ist, dass die Seite, Nachricht oder das Event selbst veröffentlicht ist.
 

@@ -15,6 +15,7 @@ use Contao\Model;
 use Contao\NewsArchiveModel;
 use Contao\NewsModel;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Routing\Exception\ExceptionInterface;
@@ -83,6 +84,25 @@ class ContentUrlCollector
 
         // A hidden page does not need to be reported because of one of its elements
         return null !== $owner ? $this->getUrl($owner[0], $owner[1], true) : null;
+    }
+
+    /**
+     * All URLs a change of the record affects: its own one and, for a published
+     * FAQ, those of the pages that show its category.
+     *
+     * @return list<string>
+     */
+    public function getUrlsFor(string $table, int $id): array
+    {
+        $url = $this->getUrlFor($table, $id);
+        $urls = null !== $url ? [$url] : [];
+
+        if ('tl_faq' === $table) {
+            $categoryId = (int) $this->connection->fetchOne('SELECT pid FROM tl_faq WHERE id = ? AND published = 1', [$id]);
+            $urls = [...$urls, ...$this->getFaqPageUrls($categoryId)];
+        }
+
+        return array_values(array_unique($urls));
     }
 
     /**
@@ -164,7 +184,15 @@ class ContentUrlCollector
             }
         }
 
-        return $urls;
+        // The pages that showed the FAQs of the category
+        if (
+            'tl_faq_category' === $table
+            && false !== $this->connection->fetchOne('SELECT id FROM tl_faq WHERE pid = ? AND published = 1 LIMIT 1', [$id])
+        ) {
+            $urls = [...$urls, ...$this->getFaqPageUrls($id)];
+        }
+
+        return array_values(array_unique($urls));
     }
 
     /**
@@ -236,6 +264,51 @@ class ContentUrlCollector
         }
 
         return str_starts_with($url, 'http') ? $url : null;
+    }
+
+    /**
+     * URLs of the pages with a content element that includes an FAQ page or FAQ
+     * list module with the category. Modules in the page layout are left out, as
+     * every page with this layout would be reported.
+     *
+     * @return list<string>
+     */
+    private function getFaqPageUrls(int $categoryId): array
+    {
+        if ($categoryId <= 0) {
+            return [];
+        }
+
+        $modules = $this->connection->fetchAllKeyValue("SELECT id, faq_categories FROM tl_module WHERE type IN ('faqpage', 'faqlist')");
+        $moduleIds = [];
+
+        foreach ($modules as $moduleId => $categories) {
+            if (\in_array($categoryId, array_map('intval', StringUtil::deserialize($categories, true)), true)) {
+                $moduleIds[] = (int) $moduleId;
+            }
+        }
+
+        if ([] === $moduleIds) {
+            return [];
+        }
+
+        $now = time();
+        $urls = [];
+
+        $elementIds = $this->connection->fetchFirstColumn(
+            "SELECT id FROM tl_content WHERE type = 'module' AND module IN (?) AND invisible = 0
+             AND (start = '' OR start <= ?) AND (stop = '' OR stop > ?)",
+            [$moduleIds, $now, $now],
+            [ArrayParameterType::INTEGER]
+        );
+
+        foreach ($elementIds as $elementId) {
+            if (null !== ($url = $this->getUrlFor('tl_content', (int) $elementId))) {
+                $urls[] = $url;
+            }
+        }
+
+        return $urls;
     }
 
     private function isReportable(Model $model, bool $requirePublished): bool

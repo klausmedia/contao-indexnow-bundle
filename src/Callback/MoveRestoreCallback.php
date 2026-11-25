@@ -94,7 +94,7 @@ class MoveRestoreCallback
     public function onCopy(int|string $insertId, DataContainer $dc): void
     {
         if ($this->isWatched((string) $dc->table)) {
-            $this->add($this->urlCollector->getUrlFor($dc->table, (int) $insertId));
+            $this->add($this->urlCollector->getUrlsFor($dc->table, (int) $insertId));
         }
     }
 
@@ -113,7 +113,7 @@ class MoveRestoreCallback
     public function onUndo(string $table, array $row): void
     {
         if (!empty($row['id']) && $this->isWatched($table)) {
-            $this->add($this->urlCollector->getUrlFor($table, (int) $row['id']));
+            $this->add($this->urlCollector->getUrlsFor($table, (int) $row['id']));
         }
     }
 
@@ -130,7 +130,7 @@ class MoveRestoreCallback
     public function onRestoreVersion(string $table, int|string $id): void
     {
         if ($this->isWatched($table)) {
-            $this->add($this->urlCollector->getUrlFor($table, (int) $id));
+            $this->add($this->urlCollector->getUrlsFor($table, (int) $id));
         }
     }
 
@@ -139,7 +139,7 @@ class MoveRestoreCallback
      */
     private function report(string $table, int $id): void
     {
-        $this->add($this->urlCollector->getUrlFor($table, $id));
+        $this->add($this->urlCollector->getUrlsFor($table, $id));
 
         if ('tl_page' === $table) {
             foreach ($this->urlCollector->getChildUrls($table, $id) as $url) {
@@ -148,9 +148,12 @@ class MoveRestoreCallback
         }
     }
 
-    private function add(string|null $url): void
+    /**
+     * @param list<string> $urls
+     */
+    private function add(array $urls): void
     {
-        if (null !== $url) {
+        foreach ($urls as $url) {
             $this->queue->add($url);
         }
     }

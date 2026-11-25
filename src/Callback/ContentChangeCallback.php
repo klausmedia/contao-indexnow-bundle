@@ -143,9 +143,7 @@ class ContentChangeCallback
             return;
         }
 
-        $url = $this->urlCollector->getUrlFor($dc->table, (int) $dc->id);
-
-        if (null !== $url) {
+        foreach ($this->urlCollector->getUrlsFor($dc->table, (int) $dc->id) as $url) {
             $this->queue->add($url);
         }
     }

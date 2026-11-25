@@ -48,7 +48,9 @@ If you have several websites, repeat these steps for each website root that shou
 
 ### Reported records
 
-Pages, news, events and FAQs with their own detail page are reported.
+Pages are reported, as well as news, events and FAQs with their own detail page.
+
+If a published **FAQ** changes, the pages that show its category through an FAQ module (module type `faqpage` or `faqlist`) in a “Module” content element are reported as well. No detail page is required. Deleting an FAQ category with published FAQs also reports these pages.
 
 Not reported are:
 
@@ -58,7 +60,7 @@ Not reported are:
 - pages that are set to never appear in the sitemap
 - page types without their own content: website root, folder, redirects, logout, error pages and news feeds
 - news and events that only link to a page, an article or an external URL
-- pages that only output news, events or FAQs through a module, when such a record changes. They can be reported by saving the page.
+- pages with news or event lists when a news item or event changes, and pages that output an FAQ module through the page layout, an insert tag or an alias element when an FAQ changes. They can be reported by saving the page.
 - websites whose root does not have IndexNow enabled or is not published. A website root without domain only reports for domains that have no website root of their own.
 
 ### Triggers
@@ -75,6 +77,7 @@ Not reported are:
 | Restoring from the recycle bin | All restored records, including those deleted along with them |
 | Restoring an older version | URL before and after restoring |
 | Start or stop date reached | URL of the record, with the next run of the cron job |
+| All actions on published FAQs, deleting an FAQ category | Also the pages that show the category (see above) |
 
 If an **article** or a **content element** changes, the page, news or event it belongs to is reported. This applies to all actions in the table, also for nested elements. The page, news or event itself must be published.
 
