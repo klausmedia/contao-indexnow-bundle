@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Reports pages, news, events, FAQs, articles and content elements that are
- * copied, moved, restored from the recycle bin ("Wiederherstellen") or set
+ * copied, moved, restored from the recycle bin or set
  * back to an older version.
  *
  * Contao calls oncut and onrestore_version only afterwards. The old place or

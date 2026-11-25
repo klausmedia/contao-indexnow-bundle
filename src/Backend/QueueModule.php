@@ -104,7 +104,7 @@ class QueueModule
     }
 
     /**
-     * "Jetzt senden": sends the whole queue, also of websites without automatic submission.
+     * "Send now": sends the whole queue, also of websites without automatic submission.
      */
     public function submit(DataContainer $dc): RedirectResponse
     {
@@ -145,8 +145,8 @@ class QueueModule
     }
 
     /**
-     * "Alle URLs einreihen": queues all URLs of the sitemaps; sent with the next
-     * cron job or with "Jetzt senden".
+     * "Queue all URLs": queues all URLs of the sitemaps; sent with the next
+     * cron job or with "Send now".
      */
     public function enqueueAll(DataContainer $dc): RedirectResponse
     {
