@@ -58,6 +58,7 @@ Nicht gemeldet werden:
 - Seiten mit „In Sitemap anzeigen: nie“
 - Seitentypen ohne eigenen Inhalt: Startpunkt, Ordner, Weiterleitungen, Logout, Fehlerseiten und Newsfeeds
 - Nachrichten und Events, die nur auf eine Seite, einen Artikel oder eine externe URL verweisen
+- Seiten, auf denen Nachrichten, Events oder FAQs nur über ein Modul ausgegeben werden, wenn sich ein solcher Eintrag ändert. Sie lassen sich durch Speichern der Seite melden.
 - Websites, deren Startpunkt IndexNow nicht aktiviert hat oder nicht veröffentlicht ist. Ein Startpunkt ohne Domain meldet nur für Domains, die keinen eigenen Startpunkt haben.
 
 ### Auslöser

@@ -58,6 +58,7 @@ Not reported are:
 - pages that are set to never appear in the sitemap
 - page types without their own content: website root, folder, redirects, logout, error pages and news feeds
 - news and events that only link to a page, an article or an external URL
+- pages that only output news, events or FAQs through a module, when such a record changes. They can be reported by saving the page.
 - websites whose root does not have IndexNow enabled or is not published. A website root without domain only reports for domains that have no website root of their own.
 
 ### Triggers
