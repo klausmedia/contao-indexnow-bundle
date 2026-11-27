@@ -6,8 +6,8 @@ Automatically reports new, changed and removed pages, news, events and FAQs to [
 
 ## Requirements
 
-- Contao 6.0 or later (6.x)
-- PHP 8.4 or later
+- Contao 5.7 or 6.x
+- PHP 8.3 or later
 - For news, events and FAQs: the respective Contao bundle (optional)
 - A Contao cron job that runs regularly (see [Cron job](#cron-job))
 
@@ -142,7 +142,7 @@ For both to run reliably, the server should call the Contao cron job every minut
 * * * * * /usr/bin/php /path/to/project/vendor/bin/contao-console contao:cron
 ```
 
-Adjust the paths to PHP and to the Contao installation to your server. The PHP binary must be version 8.4 or later.
+Adjust the paths to PHP and to the Contao installation to your server. The PHP binary must be version 8.3 or later.
 
 Without a server cron job, the Contao cron only runs when the front end is visited. Reports may then be delayed.
 

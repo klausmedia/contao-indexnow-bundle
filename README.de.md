@@ -6,8 +6,8 @@ Meldet neue, geänderte und entfernte Seiten, Nachrichten, Events und FAQs autom
 
 ## Voraussetzungen
 
-- Contao 6.0 oder neuer (6.x)
-- PHP 8.4 oder neuer
+- Contao 5.7 oder 6.x
+- PHP 8.3 oder neuer
 - Für Nachrichten, Events und FAQs: das jeweilige Contao-Bundle (optional)
 - Ein Contao-Cronjob, der regelmäßig läuft (siehe [Cronjob](#cronjob))
 
@@ -142,7 +142,7 @@ Damit beide zuverlässig laufen, sollte der Server den Contao-Cronjob jede Minut
 * * * * * /usr/bin/php /pfad/zum/projekt/vendor/bin/contao-console contao:cron
 ```
 
-Die Pfade zu PHP und zur Contao-Installation müssen an den eigenen Server angepasst werden. PHP muss dabei in Version 8.4 oder neuer aufgerufen werden.
+Die Pfade zu PHP und zur Contao-Installation müssen an den eigenen Server angepasst werden. PHP muss dabei in Version 8.3 oder neuer aufgerufen werden.
 
 Ohne Server-Cronjob läuft der Contao-Cron nur bei Besuchen im Frontend. Meldungen können sich dann verzögern.
 

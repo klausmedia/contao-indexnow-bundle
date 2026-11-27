@@ -155,7 +155,7 @@ class ContentChangeCallback
         }
 
         $value = $this->connection->fetchOne(
-            'SELECT ' . $this->connection->quoteSingleIdentifier($column) . ' FROM ' . $dc->table . ' WHERE id = ?',
+            'SELECT ' . $column . ' FROM ' . $dc->table . ' WHERE id = ?',
             [(int) $dc->id]
         );
 
